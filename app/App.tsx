@@ -3,6 +3,7 @@ import { Text, View, Pressable } from 'react-native';
 import '../global.css';
 import Navbar from './components/Navbar';
 import RegisterFeatured from './components/RegisterFeatured';
+import Categories from './components/Homepage/Categories';
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <StatusBar style="dark" backgroundColor="transparent" translucent />
       <Navbar />
       <RegisterFeatured />
+      <Categories />
     </View>
   );
 }

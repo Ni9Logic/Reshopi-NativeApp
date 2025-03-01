@@ -1,5 +1,4 @@
-import { View, Text, Image, Pressable } from "react-native";
-import reigsterfeatureImage from "@/assets/registerfeaturedImage.png";
+import { View, Image } from "react-native";
 export default function RegisterFeatured() {
   return (
     <View className="w-full">
