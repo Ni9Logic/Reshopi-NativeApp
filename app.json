@@ -19,11 +19,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.reshopi.blipmarketplace",
+      "versionCode": 1,
+      "permissions": []
     },
     "web": {
       "bundler": "metro",
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "af40bedc-465d-439b-a969-b2db2518ab55"
+      }
+    },
+    "owner": "ni9logic"
   }
 }
