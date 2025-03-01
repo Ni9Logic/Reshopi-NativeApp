@@ -1,10 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import Logo from '@/assets/logo-blanco.png';
 import { View, Image, Text, TextInput, Pressable } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Navbar() {
   return (
-    <View className="w-full bg-purple-800 px-4 py-3">
+    <LinearGradient
+      colors={['#1e40af', '#3730a3', '#7e22ce', '#9333ea']} 
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}
+      locations={[0, 0.3, 0.6, 1]}
+      className="w-full px-4 py-3"
+    >
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center gap-3">
           <Pressable>
@@ -34,7 +41,7 @@ export default function Navbar() {
 
       <View className="mt-3">
         <View className="flex-row items-center bg-white rounded-lg px-3 py-1">
-          <Ionicons name="search" size={16} color={"#FFFFFF"}  className='bg-purple-600 rounded-full p-2' />
+          <Ionicons name="search" size={16} color="#FFFFFF" className='bg-[#1e40af] rounded-full p-2' />
           <TextInput
             placeholder="Search products..."
             className="flex-1 ml-2 text-base"
@@ -45,12 +52,12 @@ export default function Navbar() {
 
       <View className='mt-3'>
         <View className='flex flex-row items-center gap-2'>
-          <Ionicons name='location-outline' size={20} color={"#FFFFFF"} />
+          <Ionicons name='location-outline' size={20} color="#FFFFFF" />
           <Text className='text-white text-sm font-semibold'>
             Rawalpindi, Pakistan
           </Text>
         </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 }
