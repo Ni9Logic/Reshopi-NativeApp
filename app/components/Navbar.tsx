@@ -2,8 +2,16 @@ import { Ionicons } from '@expo/vector-icons';
 import Logo from '@/assets/logo-blanco.png';
 import { View, Image, Text, TextInput, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
+import { HomeScreenNavigationProp } from '../types/navigation';
 
 export default function Navbar() {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+
+  const handleSignInPress = () => {
+    navigation.navigate('SignIn');
+  };
+
   return (
     <LinearGradient
       colors={['#1e40af', '#3730a3', '#7e22ce', '#9333ea']} 
@@ -24,11 +32,13 @@ export default function Navbar() {
           />
         </View>
         <View className="flex-row gap-4">
-          <View className='items-center justify-center'>
-            <Text className='text-white text-sm font-semibold'>
-              Hello, Sign In
-            </Text>
-          </View>
+          <Pressable onPress={handleSignInPress}>
+            <View className='items-center justify-center'>
+              <Text className='text-white text-sm font-semibold'>
+                Hello, Sign In
+              </Text>
+            </View>
+          </Pressable>
           <View className="relative">
             <Ionicons name="cart-outline" size={28} color="#E9D5FF" />
             <View className="absolute -top-2 -right-2 h-5 w-5 bg-red-500 rounded-full items-center justify-center">
