@@ -26,16 +26,17 @@ export default function Categories(){
     { title: "Footwear", image: footwearCategory },
   ]
   return (
-    <ScrollView 
-      horizontal 
-      showsHorizontalScrollIndicator={false}
-      className="flex"
-    >
-      <View className="flex flex-row gap-1 px-2">
-        {categories.map((category, index) => (
-          <CategoryCard key={index} title={category.title} image={category.image} />
-        ))}
-      </View>
-    </ScrollView>
+    <View className="h-32">
+      <ScrollView 
+        horizontal 
+        showsHorizontalScrollIndicator={false}
+      >
+        <View className="flex flex-row gap-1 px-2">
+          {categories.map((category, index) => (
+            <CategoryCard key={index} title={category.title} image={category.image} />
+          ))}
+        </View>
+      </ScrollView>
+    </View>
   )
 }

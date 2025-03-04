@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
+import { View, Image, ScrollView, Text } from 'react-native';
 import '../global.css';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,6 +8,9 @@ import SignUp from './pages/SignUp';
 import Navbar from './components/Navbar';
 import RegisterFeatured from './components/RegisterFeatured';
 import Categories from './components/Homepage/Categories';
+import CategoryImages from './components/Homepage/CategoryImages';
+import BestSellingProducts from './components/Homepage/BestSellingProducts';
+import ProductsNearYou from './components/Homepage/ProductsNearYou';
 
 // Create a stack navigator
 const Stack = createNativeStackNavigator();
@@ -15,12 +18,21 @@ const Stack = createNativeStackNavigator();
 // Home screen component
 function HomeScreen() {
   return (
-    <View className="bg-white flex-1 gap-2">
+    <View className="bg-white flex-1">
       <View className="h-10" /> {/* Status bar spacer */}
       <StatusBar style="dark" backgroundColor="transparent" translucent />
-      <Navbar />
-      <RegisterFeatured />
-      <Categories />
+      <View className="sticky top-0 z-10">
+        <Navbar />
+      </View>
+      <ScrollView className="flex-1">
+        <View className="flex gap-2">
+          <RegisterFeatured />
+          <Categories />
+          <CategoryImages />
+          <BestSellingProducts />
+          <ProductsNearYou />
+        </View>
+      </ScrollView>
     </View>
   );
 }
