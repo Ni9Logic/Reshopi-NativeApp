@@ -3,6 +3,8 @@ import { View, Image, ScrollView, Text } from 'react-native';
 import '../global.css';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Feather } from '@expo/vector-icons';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Navbar from './components/Navbar';
@@ -13,9 +15,12 @@ import BestSellingProducts from './components/Homepage/BestSellingProducts';
 import ProductsNearYou from './components/Homepage/ProductsNearYou';
 import MenuBar from './components/MenuBar';
 import CarouselImages from './components/Homepage/CarouselImages';
+import Explore from './pages/Explore';
+import Sell from './pages/Sell';
+import Profile from './pages/Profile';
 
-// Create a stack navigator
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 // Home screen component
 function HomeScreen() {
@@ -37,17 +42,74 @@ function HomeScreen() {
         </View>
       </ScrollView>
       
-      {/* Bottom Navigation Bar */}
-      <MenuBar />
     </View>
+  );
+}
+
+// Create the tab navigation
+function TabNavigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          paddingVertical: 8,
+          backgroundColor: 'white',
+          borderTopColor: '#f1f5f9',
+        },
+        tabBarActiveTintColor: '#4f46e5',
+        tabBarInactiveTintColor: '#6b7280',
+      }}
+    >
+      <Tab.Screen 
+        name="HomeTab" 
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Inicio',
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="Explore" 
+        component={Explore}
+        options={{
+          tabBarLabel: 'Explorar',
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="search" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="Sell" 
+        component={Sell}
+        options={{
+          tabBarLabel: 'Vender',
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="dollar-sign" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="Profile" 
+        component={Profile}
+        options={{
+          tabBarLabel: 'Mi cuenta',
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="user" size={size} color={color} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="MainTabs" component={TabNavigator} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
