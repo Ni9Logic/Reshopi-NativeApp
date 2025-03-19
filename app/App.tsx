@@ -13,7 +13,6 @@ import Categories from './components/Homepage/Categories';
 import CategoryImages from './components/Homepage/CategoryImages';
 import BestSellingProducts from './components/Homepage/BestSellingProducts';
 import ProductsNearYou from './components/Homepage/ProductsNearYou';
-import MenuBar from './components/MenuBar';
 import CarouselImages from './components/Homepage/CarouselImages';
 import Explore from './pages/Explore';
 import Sell from './pages/Sell';

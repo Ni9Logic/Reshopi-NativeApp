@@ -8,10 +8,10 @@ export default function CarouselImages() {
   const windowHeight = Dimensions.get('window').height;
 
   const images = [
-    require('@/assets/banner1.png'),
-    require('@/assets/banner2.png'),
-    require('@/assets/banner3.png'),
-    require('@/assets/banner4.png'),
+    require('@/assets/banner1.jpeg'),
+    require('@/assets/banner2.jpeg'),
+    require('@/assets/banner3.jpeg'),
+    require('@/assets/banner4.jpeg'),
   ];
 
   // Auto-scroll functionality
@@ -76,7 +76,7 @@ export default function CarouselImages() {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 800, // Adjust this value to your needs
+    height: 640, // Adjust this value to your needs
     position: 'relative',
   },
   scrollView: {
