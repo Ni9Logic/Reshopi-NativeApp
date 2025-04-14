@@ -123,6 +123,7 @@ model direcciones {
   comuna_id        BigInt                @db.UnsignedBigInt
   geo              Json?
   point            Unsupported("point")?
+  tipo             direcciones_tipo?
   created_at       DateTime?             @db.Timestamp(0)
   updated_at       DateTime?             @db.Timestamp(0)
   productos        productos[]
@@ -570,7 +571,7 @@ model users {
   created_at          DateTime?             @db.Timestamp(0)
   updated_at          DateTime?             @db.Timestamp(0)
   datos_personales    String?               @db.LongText
-  pass                String                @db.Text
+  pass                String?               @db.Text
   orden_compras       orden_compras[]
   orden_pagos         orden_pagos[]
   payout_transactions payout_transactions[]
@@ -619,4 +620,9 @@ enum orden_compra_detalles_dispersion_status {
   completed
   warranty
   initiated
+}
+
+enum direcciones_tipo {
+  venta
+  compra
 }
