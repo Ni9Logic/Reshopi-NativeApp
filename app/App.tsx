@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, Image, ScrollView, Text } from 'react-native';
+import React from 'react';
 import '../global.css';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -18,8 +19,11 @@ import Explore from './pages/Explore';
 import Sell from './pages/Sell';
 import Profile from './pages/Profile';
 import Purchases from './pages/Profile/screens/Purchases';
+import PurchaseDetail from './pages/Profile/screens/PurchaseDetail';
 import Addresses from './pages/Profile/screens/Addresses';
+import AddressForm from './pages/Profile/screens/AddressForm';
 import Sales from './pages/Profile/screens/Sales';
+import SalesDetail from './pages/Profile/screens/SalesDetail';
 import Earnings from './pages/Profile/screens/Earnings';
 import SalesAddresses from './pages/Profile/screens/SalesAddresses';
 import PublishedProducts from './pages/Profile/screens/PublishedProducts';
@@ -28,6 +32,7 @@ import Help from './pages/Profile/screens/Help';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const AuthStack = createNativeStackNavigator();
 
 // Home screen component
 function HomeScreen() {
@@ -111,21 +116,58 @@ function TabNavigator() {
   );
 }
 
+// Auth navigator
+function AuthNavigator() {
+  return (
+    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+      <AuthStack.Screen name="SignIn" component={SignIn} />
+      <AuthStack.Screen name="SignUp" component={SignUp} />
+    </AuthStack.Navigator>
+  );
+}
+
 export default function App() {
+  // For demonstration, we'll start with the auth flow
+  // In a real app, you would check if the user is already logged in
+  const isLoggedIn = true;
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="MainTabs" component={TabNavigator} />
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Purchases" component={Purchases} />
-        <Stack.Screen name="Addresses" component={Addresses} />
-        <Stack.Screen name="Sales" component={Sales} />
-        <Stack.Screen name="Earnings" component={Earnings} />
-        <Stack.Screen name="SalesAddresses" component={SalesAddresses} />
-        <Stack.Screen name="PublishedProducts" component={PublishedProducts} />
-        <Stack.Screen name="TransferData" component={TransferData} />
-        <Stack.Screen name="Help" component={Help} />
+        {isLoggedIn ? (
+          // Main app flow - only include the MainTabs once
+          <>
+            <Stack.Screen name="MainTabs" component={TabNavigator} />
+            <Stack.Screen name="Purchases" component={Purchases} />
+            <Stack.Screen name="PurchaseDetail" component={PurchaseDetail} />
+            <Stack.Screen name="Addresses" component={Addresses} />
+            <Stack.Screen name="AddressForm" component={AddressForm} />
+            <Stack.Screen name="Sales" component={Sales} />
+            <Stack.Screen name="SalesDetail" component={SalesDetail} />
+            <Stack.Screen name="Earnings" component={Earnings} />
+            <Stack.Screen name="SalesAddresses" component={SalesAddresses} />
+            <Stack.Screen name="PublishedProducts" component={PublishedProducts} />
+            <Stack.Screen name="TransferData" component={TransferData} />
+            <Stack.Screen name="Help" component={Help} />
+          </>
+        ) : (
+          // Auth flow - Include all screens here to allow navigation to main app
+          <>
+            <Stack.Screen name="Auth" component={AuthNavigator} />
+            <Stack.Screen name="MainTabs" component={TabNavigator} />
+            <Stack.Screen name="Purchases" component={Purchases} />
+            <Stack.Screen name="PurchaseDetail" component={PurchaseDetail} />
+            <Stack.Screen name="Addresses" component={Addresses} />
+            <Stack.Screen name="AddressForm" component={AddressForm} />
+            <Stack.Screen name="Sales" component={Sales} />
+            <Stack.Screen name="SalesDetail" component={SalesDetail} />
+            <Stack.Screen name="Earnings" component={Earnings} />
+            <Stack.Screen name="SalesAddresses" component={SalesAddresses} />
+            <Stack.Screen name="PublishedProducts" component={PublishedProducts} />
+            <Stack.Screen name="TransferData" component={TransferData} />
+            <Stack.Screen name="Help" component={Help} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

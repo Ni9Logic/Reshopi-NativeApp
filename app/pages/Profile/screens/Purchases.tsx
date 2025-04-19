@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type RootStackParamList = {
-  [key: string]: undefined;
+  [key: string]: undefined | { orderId: string };
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -102,11 +102,14 @@ export default function Purchases() {
                   <View className="border-1 border-blue-400 rounded-lg items-center justify-center w-10 h-10">
                     <Ionicons name="chatbox-ellipses-outline" size={20} color="#60a5fa" />
                   </View>
-                  <View className="border-1 border-blue-400 rounded-lg items-center justify-center w-24 h-10">
+                  <TouchableOpacity 
+                    onPress={() => navigation.navigate('PurchaseDetail', { orderId: '26660009' })}
+                    className="border-1 border-blue-400 rounded-lg items-center justify-center w-24 h-10"
+                  >
                     <Text className="text-center items-center justify-center w-full h-full p-2 text-blue-400 font-bold">
                       Ver detalles
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>

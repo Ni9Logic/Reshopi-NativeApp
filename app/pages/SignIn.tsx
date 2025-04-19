@@ -1,105 +1,110 @@
-import { View, Text, TextInput, Pressable, Image, TouchableOpacity, StatusBar, Platform } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image, StatusBar, ScrollView } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { SignInScreenNavigationProp } from '../types/navigation';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import reshopiLogo from "@/assets/logo-color.png";
 import { useState } from "react";
 
 export default function SignIn() {
   const navigation = useNavigation<SignInScreenNavigationProp>();
-  const insets = useSafeAreaInsets();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  const handleSignIn = () => {
+    // Form validation
+    if (!email || !password) {
+      return;
+    }
+    
+    // Navigate to main app after sign in
+    navigation.navigate('MainTabs');
+  };
+
   return (
     <View className="flex-1 bg-white">
-      <StatusBar barStyle="light-content" backgroundColor="#1e40af" />
-      {/* Header with gradient background */}
-      <View
-        style={{ paddingTop: insets.top }}
-        className="w-full bg-black"
-      >
-        <View className="flex flex-row items-center p-4">
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            className="p-2 bg-white/10 rounded-full"
-          >
-            <Ionicons name="arrow-back" size={22} color="#ffffff" />
-          </TouchableOpacity>
-          <Text className="text-white text-lg font-bold ml-4">Sign In</Text>
-        </View>
-      </View>
-
-      {/* Sign In Form */}
-      <View className="px-8 py-10 flex-1 justify-center">
-        <View className="mb-8 items-center">
-          <Text className="text-3xl font-bold text-gray-800 mb-4">Welcome Back</Text>
+      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+      
+      <ScrollView className="flex-1 px-6 pt-8">
+        <View className="items-center mb-4">
+          <Text className="text-2xl text-center font-bold mb-2">¡Hola Bienvenido!</Text>
           <Image
             source={reshopiLogo}
-            className="w-40 h-20"
+            className="w-20 h-20"
             resizeMode="contain"
           />
         </View>
         
-        <View className="mb-5">
-          <Text className="text-gray-700 mb-2 font-medium ml-1">Email</Text>
-          <View className="flex-row items-center border border-gray-200 rounded-xl bg-gray-50 px-4">
-            <Ionicons name="mail-outline" size={20} color="#6366f1" />
+        {/* Tab navigation */}
+        <View className="flex-row mb-6 border-b border-gray-200">
+          <TouchableOpacity 
+            className="pb-2 px-4"
+            onPress={() => navigation.navigate('SignUp')}
+          >
+            <Text className="text-gray-400">REGÍSTRATE</Text>  
+          </TouchableOpacity>
+          <TouchableOpacity 
+            className="pb-2 px-4 border-b-2 border-indigo-600"
+            onPress={() => {}}
+          >
+            <Text className="font-medium">INICIA SESIÓN</Text>
+          </TouchableOpacity>
+        </View>
+        
+        {/* Sign In Form */}
+        <View className="py-2">
+          <View className="mb-4">
+            <Text className="text-gray-700 mb-1">Dirección de correo electrónico</Text>
             <TextInput
-              placeholder="Enter your email"
-              className="flex-1 p-3.5 ml-2 text-gray-800"
+              placeholder=""
+              className="border border-gray-300 rounded p-3 text-gray-800"
               keyboardType="email-address"
               autoCapitalize="none"
               value={email}
               onChangeText={setEmail}
             />
           </View>
-        </View>
 
-        <View className="mb-4">
-          <Text className="text-gray-700 mb-2 font-medium ml-1">Password</Text>
-          <View className="flex-row items-center border border-gray-200 rounded-xl bg-gray-50 px-4">
-            <Ionicons name="lock-closed-outline" size={20} color="#6366f1" />
-            <TextInput
-              placeholder="Enter your password"
-              className="flex-1 p-3.5 ml-2 text-gray-800"
-              secureTextEntry={!showPassword}
-              value={password}
-              onChangeText={setPassword}
-            />
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#6366f1" />
+          <View className="mb-2">
+            <Text className="text-gray-700 mb-1">Contraseña</Text>
+            <View className="flex-row items-center border border-gray-300 rounded">
+              <TextInput
+                placeholder=""
+                className="flex-1 p-3 text-gray-800"
+                secureTextEntry={!showPassword}
+                value={password}
+                onChangeText={setPassword}
+              />
+              <TouchableOpacity 
+                onPress={() => setShowPassword(!showPassword)} 
+                className="px-3"
+              >
+                <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#6b7280" />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <TouchableOpacity className="self-end mb-6">
+            <Text className="text-gray-500 text-sm">¿Olvidaste tu contraseña?</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            onPress={handleSignIn}
+            className={`mt-2 ${(!email || !password) ? 'opacity-70' : 'opacity-100'}`}
+          >
+            <View className="bg-indigo-600 py-3 rounded items-center">
+              <Text className="text-white font-semibold">Inicio sesión</Text>
+            </View>
+          </TouchableOpacity>
+
+          <View className="mt-6 items-center">
+            <Text className="text-gray-500 text-sm">¿Aún no eres un ReShoper?</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Text className="text-indigo-600 font-semibold">Crea tu cuenta</Text>
             </TouchableOpacity>
           </View>
         </View>
-
-        <TouchableOpacity className="self-end mb-6">
-          <Text className="text-indigo-600 font-medium">Forgot Password?</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <LinearGradient
-            colors={['#4f46e5', '#7e22ce']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            className="py-4 rounded-xl items-center shadow-sm"
-          >
-            <Text className="text-white font-bold text-lg">Sign In</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-
-        <View className="flex items-center mt-6">
-          <Text className="text-gray-600">Are you new to ReShopi? </Text>
-        </View>
-        <View className="items-center flex">
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Text className="text-indigo-600 font-semibold">Create an account</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }

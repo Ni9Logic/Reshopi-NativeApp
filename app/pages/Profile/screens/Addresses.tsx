@@ -3,16 +3,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
-type RootStackParamList = {
-  [key: string]: undefined;
-};
-
-type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+import { AddressesScreenNavigationProp } from "../../../types/navigation";
 
 export default function Addresses() {
-  const navigation = useNavigation<NavigationProp>();
+  const navigation = useNavigation<AddressesScreenNavigationProp>();
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -62,7 +56,10 @@ export default function Addresses() {
           </Text>
         </View>
 
-        <TouchableOpacity className="bg-indigo-600 p-4 rounded-xl">
+        <TouchableOpacity 
+          className="bg-indigo-600 p-4 rounded-xl"
+          onPress={() => navigation.navigate('AddressForm')}
+        >
           <Text className="text-white text-center font-medium">Agregar dirección</Text>
         </TouchableOpacity>
       </View>
